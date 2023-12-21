@@ -1,4 +1,4 @@
-# 博哥爱运维-2023课程笔记
+# Kubernetes汇总
 
 kubernetes的API对象
 
@@ -28,7 +28,7 @@ Events	k8s事件流，可以用来监控相关事件，也不需要实际操作
 
 
 
-### P9  无状态服务   deployment 1
+### 无状态服务   deployment
 
 记不清楚的命令可以在基础命令后加上 -help 查看详细说明
 老版本：1.17  1.18
@@ -44,7 +44,7 @@ kubectl create service clusterip nginx --tcp=80:80 --dry-run=client -o yaml
 
 
 
-这条命令是不是很眼熟，对了，这就是上面创建deployment的命令，
+这条命令就是上面创建deployment的命令，
 
 我们在后面加上`--dry-run -o yaml`,--dry-run代表这条命令不会实际在K8s执行，
 -o yaml是会将试运行结果以yaml的格式打印出来，这样我们就能轻松获得yaml配置了
@@ -56,8 +56,6 @@ kubectl get pod -label/l app=$label_name
 ```
 
 
-
-### P10  无状态服务 deployment 2
 
 一定要记得，在部署k8s CRI的时候，要在后边加上 --record 参数的命令,k8s事件流才会有详细的记录，这就是为什么在生产/测试中操作一定得加上的原因了
 
@@ -109,7 +107,7 @@ kind:Ingress下  annotations的具体配置
 
 
 
-### P11   服务健康检测
+### 服务健康检测
 
 Liveness   Readiness
 
@@ -119,7 +117,7 @@ Liveness   Readiness
 
 
 
-### P12   Service Endpoint  Endpoint  Slices
+### Service Endpoint  Endpoint  Slices
 
 另一种创建service的方法
 
@@ -179,7 +177,7 @@ status:
 
 
 
-### P13   资源身份标签 Labels
+### 资源身份标签 Labels
 
 
 
@@ -187,7 +185,7 @@ status:
 
 
 
-### P14 第7关  Calico网络流量剖析
+### Calico网络流量剖析
 
 ipip	协议号 4
 icmp      协议号 1
@@ -200,7 +198,7 @@ ipip 协议  支持  数据链路层 和 网络层
 
 
 
-### P15  第8关 helm包管理
+### helm包管理
 
 基于kubeeasz项目
 
@@ -233,7 +231,7 @@ install.go:217: [debug] CHART PATH: /root/.cache/helm/repository/mysql-1.6.9.tgz
 
 
 
-### P16  netshoot k8s网络故障排查瑞士军刀
+### netshoot k8s网络故障排查
 
 https://github.com/nicolaka/netshoot
 
@@ -241,7 +239,7 @@ https://githubfast.com/nicolaka/netshoot
 
 
 
-### P17 k8s排错debug实战，如何在pod内进行tcpdump流量抓包
+### k8s排错debug，在pod内进行tcpdump流量抓包
 
 ```shell
 kubectl create deployment nginx --image=nginx:1.21.6
@@ -257,10 +255,10 @@ kubectl label pod nginx-debugger app=nginx
 
 
 
-### P18  Ingress-Nginx 控制器:生产环境实战配置
+### Ingress-Nginx 控制器:生产环境实战配置
 
 ```shell
-视频时间 24:19    resources 配置会影响到该pod的优先级，如果limits 和 requests越接近，优先级则越高
+resources 配置会影响到该pod的优先级，如果limits 和 requests越接近，优先级则越高
 需要查询一下，还有没有其他影响pod优先级的操作或设置
 
 # 给node节点添加/查看/去除  label标签
@@ -305,7 +303,7 @@ total 8
 
 
 
-### P19 解决K8S 中 Ingress-Nginx 控制器无法获取真实客户端IP的问题
+### 解决K8S 中 Ingress-Nginx 控制器无法获取真实客户端IP的问题
 
 ```shell
 网络知识延展: DCDN,WAF,高防线路
@@ -334,7 +332,7 @@ data:
 
 
 
-### P20 快速定位业务服务慢的问题：利用 Ingress-Nginx 和日志查询实现高效故障排查
+### 快速定位业务服务慢的问题：利用 Ingress-Nginx 和日志查询实现高效故障排查
 
 
 
@@ -342,7 +340,7 @@ data:
 
 
 
-### P21 K8s HPA：自动水平伸缩Pod，实现弹性扩展和资源优化
+### K8s HPA：自动水平伸缩Pod，实现弹性扩展和资源优化
 
 HPA Horizontal Pod Autoscaling
 
@@ -352,7 +350,7 @@ HPA Horizontal Pod Autoscaling
 
 
 
-### P22  深入理解K8s配置管理：ConfigMap和Secret的终极指南
+### 深入理解K8s配置管理：ConfigMap和Secret的终极指南
 
 ```shell
 Examples:
@@ -388,7 +386,7 @@ xxl-job是分布式任务调度系统，java写的，国人开源，用的大公
 
 
 
-### P23  K8s数据安全无忧——持久化存储详解一
+### K8s数据安全无忧——持久化存储详解一
 
 ```shell
 K8S volume
@@ -453,7 +451,7 @@ subPath  仅仅单独挂载指定的文件，不影响挂载目录文件等
     name: flexvol-driver-host
 ```
 
-### P24  K8s数据安全无忧——持久化存储详解二
+### K8s数据安全无忧——持久化存储详解二
 
 ```shell
 3. PersistenVolume(PV)  &&  PersistentVolumeClaim(PVC)
@@ -524,19 +522,19 @@ spec:
 
 
 
-### P25  5.2k star 开源分布式存储服务Rancher-Longhorn在k8s上部署
+### 5.2k star 开源分布式存储服务Rancher-Longhorn在k8s上部署
 
 
 
 
 
-### P26  快速掌握K8S下的有状态服务StatefulSet
+### K8S下的有状态服务StatefulSet
 
 
 
 
 
-### P27  在 K8s中部署Job和CronJob的全面指导
+### 在 K8s中部署Job和CronJob
 
 ```shell
 *** job 和 cronjob 的优势是可以访问内部资源
@@ -593,7 +591,7 @@ Use "kubectl options" for a list of global command-line options (applies to all 
 
 
 
-### P28  深入解析K8s中的RBAC角色访问控制策略
+### K8s中的RBAC角色访问控制策略
 
 ```shell
 Role-Based Access Control
@@ -611,7 +609,7 @@ ServiceAccount ---|
 
 
 
-### P29  让K8s管理变得轻松! Kubectl插件
+### Kubectl插件应用
 
 
 
@@ -622,7 +620,7 @@ ServiceAccount ---|
 
 
 
-### P30  K8s部署优化：利用亲和性、反亲和性、污点、容忍和节点选择器的威力
+### K8s部署优化：利用亲和性、反亲和性、污点、容忍和节点选择器的威力
 
 
 
@@ -632,7 +630,7 @@ ServiceAccount ---|
 
 
 
-### P31  利用operator部署生产级别的Elasticserach集群和kibana
+### 利用operator部署生产级别的Elasticserach集群和kibana
 
 
 
@@ -644,17 +642,17 @@ ServiceAccount ---|
 
 
 
-# 2021年博哥课程
+# 2021年随笔
 
 
 
-### 第14关 k8s架构师课程之业务Prometheus监控实战操作篇一
+### Prometheus监控操作
 
 ```shell
 *******
 find ./ -type f | xargs grep 'image: ' | sort | uniq | awk '{print $3}'|grep ^[a-zA-Z]|grep -Evw 'error|kubeRbacProxy'|sort -rn|uniq
-罗列Prometheus && Grafana 所需的镜像
-其中rancher/metrics-server-amd64 应该可以平替 gcr.io/google_containers/metrics-server-amd64
+罗列 Prometheus && Grafana 所需的镜像
+其中rancher/metrics-server-amd64  可以平替 gcr.io/google_containers/metrics-server-amd64
 *******
 
 通过加载镜像将Prometheus部署在master上，然后解决Prometheus无法监控到 kube-controller-manager 和 kube-scheduler 的问题
@@ -770,7 +768,7 @@ kube-scheduler            ClusterIP   None            <none>        10251/TCP   
 
 
 
-### 第14关 k8s架构师课程之业务Prometheus监控实战操作篇二
+### Prometheus监控操作 后续
 
 
 
