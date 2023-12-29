@@ -632,7 +632,32 @@ ServiceAccount ---|
 
 ### 利用operator部署生产级别的Elasticserach集群和kibana
 
+Kubernetes Operator 是一种用于扩展 Kubernetes 功能的软件。它的主要功能包括:
 
+1. 自动化操作 - Operator 可以自动执行诸如部署、扩缩容、升级、备份等常见操作。用户不需要手动一个个 Pod 去执行这些任务。
+
+2. 无状态应用管理 - Operator 很适合管理那些无状态的应用,比如数据库、缓存等。它通过控制器模式让应用始终处于预期的状态。
+
+3. 减少重复工作 - Operator 让用户从重复的日常工作中解脱出来,这些工作可以交给 Operator 来自动完成。
+
+4. 基于 CRD 扩展 - Operator 通过自定义资源定义(CRD)扩展 Kubernetes 的 API,并基于这些 CRD 来实现自定义控制循环。
+
+5. 结合服务目录 - Operator 可以与服务目录(如 Service Catalog)集成,来启用基于权限的资源控制和分发。
+
+   总的来说,Kubernetes Operator 的核心思想是通过程序化和自动化的方式来管理和扩展 Kubernetes 集群。它极大地简化了在 Kubernetes 上安装和运行复杂应用的过程。
+
+Operator 的工作原理基于 Kubernetes 的控制器模式。它会不断地监测 Kubernetes 集群的状态,一旦发现自定义资源(CR)的实际状态与预期状态不符,Operator 就会执行相应的操作以使其达到预期状态。这种模式使得 Operator 可以实现自我修复和自动恢复的功能。
+
+常见的 Kubernetes Operator 包括 Rook 提供存储解决方案的 Operator,Prometheus Operator 用于监控集群的 Operator,Istio Operator 用于服务网格的 Operator 等。这些 Operator 为 Kubernetes 生态带来了很大的便利。
+
+```shell
+# 部署eck operator
+kubectl create -f https://download.elastic.co/downloads/eck/2.10.0/crds.yaml
+kubectl apply -f https://download.elastic.co/downloads/eck/2.10.0/operator.yaml
+kubectl -n elastic-system get pod
+kubectl -n elastic-system logs -f statefulset.apps/elastic-operator
+kubectl create ns es
+```
 
 
 
